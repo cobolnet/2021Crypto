@@ -11,9 +11,10 @@ class XorTable:
             for j in range(16):
                 self.box[i][j] = state[i][j] ^ key[i][j]
 
-        # return 16*16 table
+        # Return 16*16 table
         return self.table
 
+    # Permutation index
     def p_table(self, state, sudoku):
         for i in range(4):
             for j in range(4):
@@ -660,7 +661,7 @@ class XorTable:
                 else:
                     print("index isn't valid!")
 
-        # return 16*16 table
+        # Return 16*16 table
         return self.table
 
     # def reverse_p_table(self, state, sudoku):
