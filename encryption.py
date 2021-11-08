@@ -1,0 +1,1 @@
+import hexasolver as hexa
