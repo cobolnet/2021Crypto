@@ -1,0 +1,668 @@
+class XorTable:
+    # Create table array
+    table = None
+
+    # Generate initial table with all 0's
+    def __init__(self):
+        self.box = [[0] * 16 for _ in range(16)]
+
+    def xor_table(self, state, key):
+        for i in range(16):
+            for j in range(16):
+                self.box[i][j] = state[i][j] ^ key[i][j]
+
+        # Return 16*16 table
+        return self.table
+
+    # Permutation index
+    def p_table(self, state, sudoku):
+        for i in range(4):
+            for j in range(4):
+                # state[0][0]~[3][3]
+                if sudoku[i][j] is 0:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[0][0]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[0][1]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[0][2]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[0][3]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[1][0]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[1][1]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[1][2]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[1][3]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[2][0]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[2][1]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[2][2]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[2][3]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[3][0]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[3][1]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[3][2]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[3][3]
+                            else:
+                                print("index2 isn't valid!")
+                # state[0][4]~[3][7]
+                elif sudoku[i][j] is 1:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[0][4]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[0][5]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[0][6]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[0][7]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[1][4]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[1][5]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[1][6]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[1][7]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[2][4]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[2][5]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[2][6]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[2][7]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[3][4]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[3][5]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[3][6]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[3][7]
+                            else:
+                                print("index2 isn't valid!")
+                # state[0][8]~[3][11]
+                elif sudoku[i][j] is 2:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[0][8]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[0][9]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[0][10]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[0][11]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[1][8]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[1][9]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[1][10]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[1][11]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[2][8]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[2][9]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[2][10]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[2][11]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[3][8]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[3][9]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[3][10]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[3][11]
+                            else:
+                                print("index2 isn't valid!")
+                # state[0][12]~[3][15]
+                elif sudoku[i][j] is 3:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[0][12]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[0][13]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[0][14]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[0][15]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[1][12]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[1][13]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[1][14]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[1][15]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[2][12]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[2][13]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[2][14]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[2][15]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[3][12]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[3][13]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[3][14]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[3][15]
+                            else:
+                                print("index2 isn't valid!")
+                # state[4][0]~[7][3]
+                elif sudoku[i][j] is 4:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[4][0]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[4][1]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[4][2]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[4][3]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[5][0]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[5][1]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[5][2]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[5][3]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[6][0]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[6][1]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[6][2]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[6][3]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[7][0]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[7][1]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[7][2]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[7][3]
+                            else:
+                                print("index2 isn't valid!")
+                # state[4][4]~[7][7]
+                elif sudoku[i][j] is 5:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[4][4]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[4][5]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[4][6]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[4][7]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[5][4]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[5][5]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[5][6]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[5][7]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[6][4]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[6][5]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[6][6]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[6][7]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[7][4]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[7][5]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[7][6]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[7][7]
+                            else:
+                                print("index2 isn't valid!")
+                # state[4][8]~[7][11]
+                elif sudoku[i][j] is 6:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[4][8]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[4][9]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[4][10]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[4][11]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[5][8]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[5][9]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[5][10]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[5][11]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[6][8]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[6][9]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[6][10]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[6][11]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[7][8]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[7][9]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[7][10]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[7][11]
+                            else:
+                                print("index2 isn't valid!")
+                # state[4][12]~[7][15]
+                elif sudoku[i][j] is 7:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[4][12]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[4][13]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[4][14]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[4][15]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[5][12]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[5][13]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[5][14]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[5][15]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[6][12]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[6][13]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[6][14]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[6][15]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[7][12]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[7][13]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[7][14]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[7][15]
+                            else:
+                                print("index2 isn't valid!")
+                # state[8][0]~[11][3]
+                elif sudoku[i][j] is 8:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[8][0]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[8][1]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[8][2]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[8][3]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[9][0]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[9][1]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[9][2]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[9][3]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[10][0]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[10][1]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[10][2]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[10][3]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[11][0]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[11][1]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[11][2]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[11][3]
+                            else:
+                                print("index2 isn't valid!")
+                # state[8][4]~[11][7]
+                elif sudoku[i][j] is 9:
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[8][4]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[8][5]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[8][6]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[8][7]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[9][4]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[9][5]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[9][6]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[9][7]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[10][4]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[10][5]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[10][6]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[10][7]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[11][4]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[11][5]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[11][6]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[11][7]
+                            else:
+                                print("index2 isn't valid!")
+                # state[8][8]~[11][11]
+                elif sudoku[i][j] is 'A':
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[8][8]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[8][9]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[8][10]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[8][11]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[9][8]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[9][9]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[9][10]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[9][11]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[10][8]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[10][9]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[10][10]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[10][11]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[11][8]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[11][9]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[11][10]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[11][11]
+                            else:
+                                print("index2 isn't valid!")
+                # state[8][12]~[11][15]
+                elif sudoku[i][j] is 'B':
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[8][12]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[8][13]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[8][14]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[8][15]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[9][12]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[9][13]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[9][14]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[9][15]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[10][12]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[10][13]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[10][14]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[10][15]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[11][12]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[11][13]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[11][14]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[11][15]
+                            else:
+                                print("index2 isn't valid!")
+                # state[12][0]~[15][3]
+                elif sudoku[i][j] is 'C':
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[12][0]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[12][1]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[12][2]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[12][3]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[13][0]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[13][1]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[13][2]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[13][3]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[14][0]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[14][1]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[14][2]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[14][3]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[15][0]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[15][1]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[15][2]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[15][3]
+                            else:
+                                print("index2 isn't valid!")
+                # state[12][4]~[15][7]
+                elif sudoku[i][j] is 'D':
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[12][4]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[12][5]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[12][6]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[12][7]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[13][4]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[13][5]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[13][6]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[13][7]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[14][4]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[14][5]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[14][6]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[14][7]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[15][4]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[15][5]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[15][6]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[15][7]
+                            else:
+                                print("index2 isn't valid!")
+                # state[12][8]~[15][11]
+                elif sudoku[i][j] is 'E':
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[12][8]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[12][9]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[12][10]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[12][11]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[13][8]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[13][9]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[13][10]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[13][11]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[14][8]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[14][9]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[14][10]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[14][11]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[15][8]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[15][9]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[15][10]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[15][11]
+                            else:
+                                print("index2 isn't valid!")
+                # state[12][12]~[15][15]
+                elif sudoku[i][j] is 'F':
+                    for y in range(4):
+                        for x in range(4):
+                            r = (i * 4) + y
+                            c = (j * 4) + x
+                            if sudoku[r][c] is 0:
+                                self.table[r][c] = state[12][12]
+                            elif sudoku[r][c] is 1:
+                                self.table[r][c] = state[12][13]
+                            elif sudoku[r][c] is 2:
+                                self.table[r][c] = state[12][14]
+                            elif sudoku[r][c] is 3:
+                                self.table[r][c] = state[12][15]
+                            elif sudoku[r][c] is 4:
+                                self.table[r][c] = state[13][12]
+                            elif sudoku[r][c] is 5:
+                                self.table[r][c] = state[13][13]
+                            elif sudoku[r][c] is 6:
+                                self.table[r][c] = state[13][14]
+                            elif sudoku[r][c] is 7:
+                                self.table[r][c] = state[13][15]
+                            elif sudoku[r][c] is 8:
+                                self.table[r][c] = state[14][12]
+                            elif sudoku[r][c] is 9:
+                                self.table[r][c] = state[14][13]
+                            elif sudoku[r][c] is 'A':
+                                self.table[r][c] = state[14][14]
+                            elif sudoku[r][c] is 'B':
+                                self.table[r][c] = state[14][15]
+                            elif sudoku[r][c] is 'C':
+                                self.table[r][c] = state[15][12]
+                            elif sudoku[r][c] is 'D':
+                                self.table[r][c] = state[15][13]
+                            elif sudoku[r][c] is 'E':
+                                self.table[r][c] = state[15][14]
+                            elif sudoku[r][c] is 'F':
+                                self.table[r][c] = state[15][15]
+                            else:
+                                print("index2 isn't valid!")
+                else:
+                    print("index isn't valid!")
+
+        # Return 16*16 table
+        return self.table
+
+    # def reverse_p_table(self, state, sudoku):
+    #     return self.table
