@@ -11,8 +11,8 @@ class Box:
     def fill_box(key):
         t_list = [-1 for _ in range(16)]
         zero_to_f = [0 for _ in range(16)]
-        dec_to_hex = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8',
-                      9: '9', 10: 'a', 11: 'b', 12: 'c', 13: 'd', 14: 'e', 15: 'f'}
+        dec_to_hex = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8,
+                      9: 9, 10: 0xa, 11: 0xb, 12: 0xc, 13: 0xd, 14: 0xe, 15: 0xf}
 
         # Mod key and fill box with hex
         index = 0
@@ -34,7 +34,7 @@ class Box:
                 for j in range(16):
                     if zero_to_f[j] == 0:
                         zero_to_f[j] = 1
-                        t_list[i] = dec_to_hex[j]
+                        t_list[i] = j#dec_to_hex[j]
                         break
 
         # Convert 1D to 2D list

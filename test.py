@@ -1,5 +1,4 @@
-from box import fill_box
-import hexasolver as hexa
+from hexadoku import createTable
 
 M = 16
 def puzzle(a):
@@ -7,7 +6,7 @@ def puzzle(a):
     for i in range(M):
         row = []
         for j in range(M):      
-            row.append(str(hex(a[i][j]))[2])
+            row.append(hex(a[i][j]))
         doku.append(row)
     return doku
 
@@ -49,6 +48,9 @@ def hexadoku(grid, row, col):
     return False
  
 '''-1 means the cells where no value is assigned'''
+grid = createTable()
+#print(grid)
+'''
 grid = [
     [0,1,2,3,           -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
     [4,5,6,7,           -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
@@ -67,6 +69,7 @@ grid = [
     [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
     [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ]
+'''
 
 if (hexadoku(grid, 0, 0)):
     print(puzzle(grid))
