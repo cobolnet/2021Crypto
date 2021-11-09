@@ -25,7 +25,7 @@ def Mkey(t):    #평문 -> 2진수 리스트
 
 
 
-def Shift(keyList): # shift
+def Shift(keyList): # encription shift
     tmplist = keyList.copy()
 
     for idx_i in range(16):
@@ -42,14 +42,40 @@ def Shift(keyList): # shift
                     keyList[idx_i][idx_j] = tmplist[idx_i - 1][idx_j - 1]
 
 
+    return np.reshape(keyList,(1,256))
+
+
+
+def dShift(keyList): #decription Shift
+    tmplist = keyList.copy()
+
+    print(tmplist)
+
+    for idx_i in range(16):
+        for idx_j in range(16):
+            if idx_i == 15 and idx_j ==15:
+                keyList[idx_i][idx_j] = tmplist[0][0]
+
+            else:
+                if idx_i == 15:
+                    keyList[idx_i][idx_j] = tmplist[0][idx_j + 1]
+                elif idx_j == 15:
+                    keyList[idx_i][idx_j] = tmplist[idx_i + 1][0]
+                else:
+                    keyList[idx_i][idx_j] = tmplist[idx_i + 1][idx_j + 1]
+
+    print(keyList)
 
     return np.reshape(keyList,(1,256))
 
 
-def main():
+
+
+
+def main(): #test
     t = "test"
 
-    print( Shift(Mkey(t)) )
+    dShift(Mkey(t))
 
 if __name__=="__main__":
     main()
