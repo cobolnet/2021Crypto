@@ -1,4 +1,7 @@
-def xor_table(state, key):
+#
+
+
+def xor_table(state, key):  #진행중인 평문 xor key (16*16)
     table = [[-1] * 16 for _ in range(16)]
     for i in range(16):
         for j in range(16):
@@ -8,7 +11,7 @@ def xor_table(state, key):
     return table
 
 
-def p_table(state, sudoku):
+def p_table(state, sudoku): #gj의 스도쿠 테이블 state평문 -> 스도쿠 치환
     table = [[-1] * 16 for _ in range(16)]
     for i in range(4):
         for j in range(4):

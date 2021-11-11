@@ -1,5 +1,8 @@
 # fill box with initial key list
-def fill_box(key):
+
+#키를 박스로 -> 쉬프
+
+def fill_box(key):  #키를 받아서 1차원리스트의 16개 문자 리스트로 반환
     t_list = [-1 for _ in range(16)]
     zero_to_f = [0 for _ in range(16)]
     dec_to_hex = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8,
@@ -39,7 +42,7 @@ def fill_box(key):
     return t_list
 
 
-def right_col_shift(box):
+def right_col_shift(box):   #박스 쉬프트
     c_temp = [box[0][3], box[1][3], box[2][3], box[3][3]]
 
     for x in range(2, -1, -1):

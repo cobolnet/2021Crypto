@@ -1,9 +1,11 @@
 import box
 #import hexasolver as hexa
 
-def createTable():
+#키 -> 최초박스
+
+def createTable():  #
     bk = box.Box()
-    bx = bk.fill_box(['0' for _ in range(256)])
+    bx = bk.fill_box(['0' for _ in range(256)]) #16*16 bit 라운드 키.
     #print(bx)
 
     elements = [0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf]
