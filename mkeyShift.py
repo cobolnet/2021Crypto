@@ -2,7 +2,36 @@ import hashlib
 import numpy as np
 
 
-def Mkey(t):    #평문 -> 2진수 리스트
+def Mstate(t): #평문 (8비트 * 32자) -> 2진수 리스트
+    tList = list(t)
+    tList16 = []
+    tList10 = []
+    tList2 = []
+    rtList = []
+
+    for i in tList:
+        tList16.append(str(hex(ord(i))))
+
+    for i in tList16:
+        tList10.append(int(i, 16))
+
+    for i in tList10:
+        tList2.append(str((bin(i)[2:].zfill(8))))
+
+    for i in tList2:
+        rtList.append(list(i))
+
+    rtList = np.reshape(rtList, (16, 16))
+
+    return rtList   #16*16 state return
+
+
+
+
+
+
+
+def Mkey(t):    #평문 -> sha256(4비트 * 64자) -> 2진수 리스트
     t = t.encode('utf-8')
     key = hashlib.sha256(t).hexdigest()
     keyList16 = list(key)
@@ -26,6 +55,8 @@ def Mkey(t):    #평문 -> 2진수 리스트
 
 
 def Shift(keyList): # encription shift
+
+    keyList = np.reshape(keyList, (16, 16))
     tmplist = keyList.copy()
 
     for idx_i in range(16):
@@ -42,7 +73,7 @@ def Shift(keyList): # encription shift
                     keyList[idx_i][idx_j] = tmplist[idx_i - 1][idx_j - 1]
 
 
-    return np.reshape(keyList,(1,256))
+    return keyList    #np.reshape(keyList,(1,256))
 
 
 
@@ -73,9 +104,9 @@ def dShift(keyList): #decription Shift
 
 
 def main(): #test
-    t = "test"
-
-    dShift(Mkey(t))
+    t = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    Mstate(t)
+    #dShift(Mkey(t))
 
 if __name__=="__main__":
     main()

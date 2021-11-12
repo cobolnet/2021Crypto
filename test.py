@@ -1,4 +1,4 @@
-from hexadoku import createTable
+from hexadoku import CreateTable
 
 M = 16
 def puzzle(a):
@@ -9,6 +9,8 @@ def puzzle(a):
             row.append(hex(a[i][j]))
         doku.append(row)
     return doku         #헥사도쿠 테이블 완성
+
+
 
 def solve(grid, row, col, num):
     for x in range(16):
@@ -48,7 +50,10 @@ def hexadoku(grid, row, col):   #만든거 채움
     return False
  
 '''-1 means the cells where no value is assigned'''
-grid = createTable()    #헥사도쿠 테이블 만듬
+
+
+
+#grid = CreateTable()    #이것도 에러뜸
 #print(grid)
 '''
 grid = [
@@ -71,11 +76,19 @@ grid = [
     ]
 '''
 
-def asd() :
-    if (hexadoku(grid, 0, 0)):  # 헥사도쿠 알고리즘
-        puzzle(grid)  # 완성된 테이블 가져오기 (16진수)
 
+
+
+def CompleteTable(eTable) :
+    if (hexadoku(eTable, 0, 0)):  # 헥사도쿠 알고리즘
+        puzzle(eTable)  # 완성된 테이블 가져오기 (16진수)
+
+
+'''
+#디버깅 용
 if (hexadoku(grid, 0, 0)):  #헥사도쿠 알고리즘
     print(puzzle(grid))     #완성된 테이블 가져오기 (16진수)
 else:
     print("Solution does not exist:(")
+    
+'''

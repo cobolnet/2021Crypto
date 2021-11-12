@@ -1,6 +1,7 @@
 # fill box with initial key list
 
-#키를 박스로 -> 쉬프
+# 키로 박스 생성
+# 박스 시프트
 
 def fill_box(key):  #키를 받아서 1차원리스트의 16개 문자 리스트로 반환
     t_list = [-1 for _ in range(16)]
@@ -40,6 +41,9 @@ def fill_box(key):  #키를 받아서 1차원리스트의 16개 문자 리스트
     #         box[i][j] = t_list[(i * 4) + j]
 
     return t_list
+
+
+
 
 
 def right_col_shift(box):   #박스 쉬프트
