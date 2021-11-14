@@ -1,6 +1,6 @@
-#
-
-#진행중인 평문 xor key (16*16)
+# 2021 정보보안
+# 4조
+# 20163080 전유승
 def xor_table(state, key):
     table = [[-1] * 16 for _ in range(16)]
     for i in range(16):
@@ -10,7 +10,7 @@ def xor_table(state, key):
     # return 16*16 table
     return table
 
-#금종씨 (table과 state) -> 스도쿠 전치 16*16
+
 def p_table(state, sudoku):
     table = [[-1] * 16 for _ in range(16)]
     for i in range(4):

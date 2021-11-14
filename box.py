@@ -1,9 +1,8 @@
+# 2021 정보보안
+# 4조
+# 20163080 전유승
 # fill box with initial key list
-
-# 키로 박스 생성
-# 박스 시프트
-
-def fill_box(key):  #키를 받아서 1차원리스트의 16개 문자 리스트로 반환
+def fill_box(key):
     t_list = [-1 for _ in range(16)]
     zero_to_f = [0 for _ in range(16)]
     dec_to_hex = {0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8,
@@ -43,10 +42,7 @@ def fill_box(key):  #키를 받아서 1차원리스트의 16개 문자 리스트
     return t_list
 
 
-
-
-
-def right_col_shift(box):   #박스 쉬프트
+def right_col_shift(box):
     c_temp = [box[0][3], box[1][3], box[2][3], box[3][3]]
 
     for x in range(2, -1, -1):
