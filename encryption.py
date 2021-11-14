@@ -1,3 +1,9 @@
+'''
+#2021 정보보안
+#4조
+#20163048 남시현
+'''
+
 from mkeyShift      import Mstate, Mkey, Shift, dShift
 from box            import fill_box, down_row_shift, up_row_shift, left_col_shift, right_col_shift
 from hexadoku       import CreateTable
