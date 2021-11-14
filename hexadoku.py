@@ -1,3 +1,7 @@
+#2021 정보보안
+#4조
+#20163081 정금종
+
 from box import fill_box
 #import hexasolver as hexa
 import numpy as np
