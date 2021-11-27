@@ -1,7 +1,7 @@
 # 2021 정보보안
 # 4조
 # 20163080 전유승
-def xor_table(state, key):
+def xor_table(state, key):                  #xor
     table = [[-1] * 16 for _ in range(16)]
     for i in range(16):
         for j in range(16):
@@ -11,11 +11,10 @@ def xor_table(state, key):
     return table
 
 
-def p_table(state, sudoku):
+def p_table(state, sudoku):                     #전치
     table = [[-1] * 16 for _ in range(16)]
     for i in range(4):
-        for j in range(4):
-            # state[0][0]~[3][3]
+        for j in range(4):  # state[0][0]~[3][3]
             if sudoku[i][j] is 0x0:
                 for y in range(4):
                     for x in range(4):
@@ -56,7 +55,7 @@ def p_table(state, sudoku):
                         else:
                             print("index2 isn't valid!")
             # state[0][4]~[3][7]
-            elif sudoku[i][j] is 0x1:
+            elif sudoku[i][j] == 0x1:
                 for y in range(4):
                     for x in range(4):
                         r = (i * 4) + y
