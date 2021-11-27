@@ -78,9 +78,6 @@ def main():
     key = CreateKey(t)
     box = CreateBox(key)
     table = CreateTable(box)
-
-    table = p_table(state, table)  # table 전치 테스트 용
-
     '''
     for i in range(16):
         state = Round(state,key,box,table)  #key_s - table 전치 - xor - box_s
@@ -89,7 +86,17 @@ def main():
         BoxShift(box, i)
     '''
 
-    print (table)
+    print ('state')
+    print(state)
+    print('key')
+    print(key)
+    print('box')
+    print(box)
+    print('table')
+    print(table)
+
+
+    #t_table = table = p_table(state, table)  # table 전치 테스트 용
 
 
 
