@@ -43,7 +43,7 @@ def CreateTable(_box) : #key -> box -> table
 def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
 
     _key = Shift(_key)             #shift key
-    _table = p_table(_state, _table)   #table 전치
+    state = p_table(_state, _table)   #table 전치
     state = xor_table(_state, _key)    #XOR
 
     return state
@@ -79,12 +79,14 @@ def main():
     box = CreateBox(key)
     table = CreateTable(box)
 
-    '''
+
     for i in range(16):
         state = Round(state,key,box,table)  #key_s - table 전치 - xor - box_s
 
         #Round(state,key,box,table)
         #BoxShift(box, i)
+
+    print(state)
         
     '''
 
@@ -100,7 +102,7 @@ def main():
     state = table = p_table(state, table)  # table 전치 테스트 용
     print('state')
     print(state)
-
+    '''
 
 if __name__=="__main__":
     main()
