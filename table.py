@@ -1,6 +1,7 @@
 # 2021 정보보안
 # 4조
 # 20163080 전유승
+# 16*16 state와 16*16 key 테이블 xor
 def xor_table(state, key):
     table = [[-1] * 16 for _ in range(16)]
     for i in range(16):
@@ -11,12 +12,8 @@ def xor_table(state, key):
     return table
 
 
+# 16*16 state와 16*16 스도쿠 테이블
 def p_table(state, sudoku):
-    print('sudoku[0][0]')
-    print(sudoku[0][0])
-    if sudoku[0][0] == '0x4':
-        print('Success')
-
     table = [[-1] * 16 for _ in range(16)]
     for i in range(4):
         for j in range(4):
