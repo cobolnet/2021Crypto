@@ -4,7 +4,7 @@
 
 # 16*16 state와 16*16 key 테이블 xor
 # numpy.str을 boolean으로
-def xor_table(state: str, key: str):
+def xor_table(state, key):
     t_state = [[-1] * 16 for _ in range(16)]
     for i in range(16):
         for j in range(16):
@@ -15,7 +15,7 @@ def xor_table(state: str, key: str):
 
 
 # boolean을 boolean으로
-def xor_table2(state: bool, key: bool):
+def xor_table2(state, key):
     t_state = [[None] * 16 for _ in range(16)]
     for i in range(16):
         for j in range(16):
