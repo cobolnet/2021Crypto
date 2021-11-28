@@ -1,12 +1,25 @@
 # 2021 정보보안
 # 4조
 # 20163080 전유승
+
 # 16*16 state와 16*16 key 테이블 xor
-def xor_table(state, key):
+# numpy.str을 boolean으로
+def xor_table(state: str, key: str):
     t_state = [[-1] * 16 for _ in range(16)]
     for i in range(16):
         for j in range(16):
             t_state[i][j] = bool(int(state[i][j])) ^ bool(int(key[i][j]))
+
+    # return 16*16 t_state
+    return t_state
+
+
+# boolean을 boolean으로
+def xor_table2(state: bool, key: bool):
+    t_state = [[None] * 16 for _ in range(16)]
+    for i in range(16):
+        for j in range(16):
+            t_state[i][j] = state[i][j] ^ key[i][j]
 
     # return 16*16 t_state
     return t_state
