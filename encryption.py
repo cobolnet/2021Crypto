@@ -78,12 +78,14 @@ def main():
     key = CreateKey(t)
     box = CreateBox(key)
     table = CreateTable(box)
+
     '''
     for i in range(16):
         state = Round(state,key,box,table)  #key_s - table 전치 - xor - box_s
 
-        Round(state,key,box,table)
-        BoxShift(box, i)
+        #Round(state,key,box,table)
+        #BoxShift(box, i)
+        
     '''
 
     print ('state')
@@ -95,10 +97,9 @@ def main():
     print('table')
     print(table)
 
-
-    #t_table = table = p_table(state, table)  # table 전치 테스트 용
-
-
+    state = table = p_table(state, table)  # table 전치 테스트 용
+    print('state')
+    print(state)
 
 
 if __name__=="__main__":
