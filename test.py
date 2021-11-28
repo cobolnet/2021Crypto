@@ -49,7 +49,7 @@ def hexadoku(grid, row, col):   #만든거 채움
         col = 0
     if grid[row][col] > -1:
         return hexadoku(grid, row, col + 1)
-    for num in range(1, M + 1, 1): 
+    for num in range(0, M , 1):
      
         if solve(grid, row, col, num):
          
@@ -88,10 +88,11 @@ grid = [
 
 
 
-
+'''
 def CompleteTable(eTable) :
     if (hexadoku(eTable, 0, 0)):  # 헥사도쿠 알고리즘
         puzzle(eTable)  # 완성된 테이블 가져오기 (16진수)
+'''
 
 
 '''

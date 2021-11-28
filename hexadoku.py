@@ -9,7 +9,6 @@ import numpy as np
 #박스 -> 빈 테이블
 
 def CreateTable(_box):  #호출 수정.
-
     bx = _box.copy()
 
 
