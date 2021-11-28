@@ -6,7 +6,7 @@ def xor_table(state, key):
     t_state = [[-1] * 16 for _ in range(16)]
     for i in range(16):
         for j in range(16):
-            t_state[i][j] = bool(state[i][j]) ^ bool(key[i][j])
+            t_state[i][j] = bool(int(state[i][j])) ^ bool(int(key[i][j]))
 
     # return 16*16 t_state
     return t_state
