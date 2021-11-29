@@ -13,6 +13,7 @@ from test           import hexadoku, puzzle
 from padding        import zeroPadding as _pad
 import numpy as np
 import binascii
+import time
 #import mkeyShift,hexadoku,box,table,test
 
 
@@ -93,6 +94,7 @@ def main():
     print("----- 키를 입력하세요 -----")
     key = input()
     print("----- 복호화를 시작합니다. -----")
+    start = time.time()
     cEncode = _pad(cText)
 
 
@@ -121,7 +123,9 @@ def main():
         print("========= 블록 번호" + str(u) +" =========")
         print(bitArr)
         bitArr = []
+    end = time.time()
 
+    print(end - start)
             
 
 #if __name__=="__main__":
