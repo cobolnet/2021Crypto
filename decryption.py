@@ -122,6 +122,10 @@ def main():
                 rowCnt = 0
         print("========= 블록 번호" + str(u) +" =========")
         print(bitArr)
+        ####
+        #여기다가 복호화/암호화 추가
+        ####
+        #bitArr 저장 필요
         bitArr = []
     end = time.time()
 
