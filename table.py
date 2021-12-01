@@ -2,6 +2,17 @@
 # 4조
 # 20163080 전유승
 
+
+# String 타입 변수를 Boolean 타입으로 변환하는 메소드
+def str_to_bool(table):
+    t_table = [[-1] * 16 for _ in range(16)]
+    for i in range(16):
+        for j in range(16):
+            t_table[i][j] = bool(int(table[i][j]))
+            
+    return t_table
+
+
 # 16*16 state와 16*16 key 테이블 xor
 # numpy.str을 boolean으로
 def xor_table(state, key):
