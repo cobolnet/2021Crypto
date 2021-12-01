@@ -1,6 +1,7 @@
 '''
 #2021 정보보안
 #4조
+#20163081 정금종
 #20163048 남시현
 '''
 from sys            import stdin
@@ -89,7 +90,6 @@ def main():
     start = time.time()
     pEncode = _pad(pText)   #암호화 할 때
     #cEncode = _d(cText)    #복호화 할 때
-    print(pEncode)
     cTextList = []
 
     byteC = []  #블록 리스트
@@ -97,7 +97,7 @@ def main():
     bitRow = [] #한 블록의 한 행  
     for i in range( int(len(pEncode) / 32)): #32바이트 == 256비트씩 끊어 블록으로 만들기
         byteC.append(pEncode[ i * 32 : i * 32 + 32])
-    print(byteC)
+
 
     #키로 박스 만들기
     box = CreateBox(key)
@@ -133,8 +133,6 @@ def main():
         for j in range(16): #16라운드
             roundText = p_table(roundText, _table)   #table 전치
             roundText = xor_table(roundText, _key)    #XOR
-            print("라운드" + str(j))
-            print(_table)
             _table = BoxShift(_table,j)
             _key = Shift(_key)                #shift key
 
@@ -155,19 +153,18 @@ def main():
                     cTextBit += '1'
                 else:
                     cTextBit += '0'
-    print(cTextBit)
+
     print('\n----- 암호문이 완성되었습니다. -----')
     for b in range(0,len(cTextBit) , 8):
         cText += (str(hex(int(cTextBit[b:8 + b],2))))
     cTexts = cText.split("0x")
-    print(cTexts)
     del cTexts[0]
     for kk in range(len(cTexts)):
         if len(str(cTexts[kk])) < 2:
             cTexts[kk] = '0'+cTexts[kk]
-    print(cTexts)
+    #print(cTexts)
     print(''.join(cTexts))
-    print(cText)            
+    #print(cText)            
     print('==================================')
     print(end - start)
             

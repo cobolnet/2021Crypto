@@ -1,6 +1,7 @@
 '''
 #2021 정보보안
 #4조
+#20163081 정금종
 #20163048 남시현
 '''
 from sys            import stdin
@@ -128,19 +129,19 @@ def main():
         #print(bitArr)
         ####
         #여기다가 복호화/암호화 추가
-        print("라운드" + str(j))
-        print(_table)
+        #print("라운드" + str(j))
+        #print(_table)
         roundText = bitArr
         for j in range(16): #16라운드
             lastTable = _table
             _table = BoxShift(_table,j)
-            print("라운드" + str(j))
-            print(_table)
+            #print("라운드" + str(j))
+            #print(_table)
             _key = dShift(_key)
                 #shift key
             
             roundText = xor_table(roundText, _key)    #XOR
-            roundText = p_table(roundText, _table)   #table 전치
+            roundText = reverse_p_table(roundText, _table)   #table 전치
 
 
         pTextList.append(roundText)
@@ -164,11 +165,18 @@ def main():
     for b in range(0,len(pTextBit) , 8):
         #print(pTextBit[b:8+b])
         pText += (str(hex(int(pTextBit[b:8 + b],2))))
-    print(pText)
-    print(bytes.fromhex(pText).decode('utf-8'))
+    
+    pTexts = pText.split('0x')
+
+
+
+    real = ''.join(pTexts)
+    real = bytes.fromhex(real)
+    
+    print(real.decode('utf-8'))
+
     print('==================================')
     print(end - start)
-            
-#9aa844a89827a710a998981b2ba99810f6a8982bf4f418a910a99aa8f4f6a9a9
+
 #if __name__=="__main__":
 main()
