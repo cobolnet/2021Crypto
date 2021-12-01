@@ -12,13 +12,5 @@ def zeroPadding(plain):
      
     return k
 
-def utfD(plain):
-    #k = b''
-    #for i in range(int(len(plain)/2)):
-    #    k += bytes.hex(plain[2*i] + plain[2*i+1])
-
-    #k = plain.encode('utf-8')
-    #bsize = len(k) 
-    #mod = bsize % 32 
-     
+def utfD(plain):  
     return bytes.fromhex(plain)

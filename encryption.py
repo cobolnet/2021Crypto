@@ -9,13 +9,13 @@ from mkeyShift      import Mstate, Mkey, Shift, dShift
 from box            import fill_box, down_row_shift, up_row_shift, left_col_shift, right_col_shift
 from shiftBoxTable  import *
 from hexadoku       import CreateTable as _CreateTable
-from table          import p_table, str_to_bool, xor_table
+from table          import p_table, str_to_bool, xor_table, xor_table2
 from test           import hexadoku, puzzle
 from padding        import zeroPadding as _pad
 from padding        import utfD as _d
 import numpy as np
 import binascii
-import time
+import time, copy
 #import mkeyShift,hexadoku,box,table,test
 
 
@@ -43,21 +43,21 @@ def CreateTable(_box) : #key -> box -> table
 ''''''''''''''''''''''''''''''
 
 
-def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
+#def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
 
-    _key = Shift(_key)             #shift key
-    state = p_table(_state, _table)   #table 전치
-    state = xor_table(_state, _key)    #XOR
+    #_key = Shift(_key)             #shift key
+    #state = p_table(_state, _table)   #table 전치
+    #state = xor_table(_state, _key)    #XOR
 
-    return state
+    #return state, _table, _key
 
 
-def BoxShift(_box,_round):    #생성된 스도쿠박스 시프트
+def BoxShift(_box, _round):    #생성된 스도쿠박스 시프트
     #if _round % 2 == 0:
     _box = right_shift_table(_box)
     #elif _round % 2 == 1 :
     _box = down_shift_table(_box)
-    #return 0
+    return _box
 
 
 ''''''''''''''''''''''''''''''''''''''
@@ -84,6 +84,7 @@ def main():
     pText = input()
     print("----- 키를 입력하세요 -----")
     key = CreateKey(input())
+    _key = copy.deepcopy(key)
     print("----- 암호화를 시작합니다. -----")
     start = time.time()
     pEncode = _pad(pText)   #암호화 할 때
@@ -96,13 +97,14 @@ def main():
     bitRow = [] #한 블록의 한 행  
     for i in range( int(len(pEncode) / 32)): #32바이트 == 256비트씩 끊어 블록으로 만들기
         byteC.append(pEncode[ i * 32 : i * 32 + 32])
-    
+    print(byteC)
 
     #키로 박스 만들기
     box = CreateBox(key)
 
     #박스로 테이블 만들기
     table = CreateTable(box)
+    _table = copy.deepcopy(table)
 
     #Key의 원소를 Bool 타입으로 변환
     keyB = str_to_bool(key) 
@@ -115,26 +117,29 @@ def main():
         for i in range(32): #한 블록의 한 행
             for k in range(7,-1,-1): #리스트에 넣기
                 tmp = byteC[u][i]
-
-                bitRow.append(((tmp >> k) & 1))
+                if(((tmp >> k) & 1) == 1) : bitRow.append(True)
+                else:bitRow.append(False)
+                #bitRow.append(((tmp >> k) & 1))
             rowCnt += 1
             if(rowCnt == 2):
                 bitArr.append(bitRow)
                 bitRow = []
                 rowCnt = 0
         #print("========= 블록 번호" + str(u) +" =========")
-        #print(bitArr)
+
         ####
         #여기다가 복호화/암호화 추가
+        roundText = bitArr
         for j in range(16): #16라운드
-            #print(roundBox)
-            roundText = Round(bitArr,key,box,table)
-            BoxShift(table,j)
-            print("라운드 : "  + str(j))
-            for rt in range(len(roundText)):
-                print(roundText[rt],end='')
-            print("\n")
+            roundText = p_table(roundText, _table)   #table 전치
+            roundText = xor_table(roundText, _key)    #XOR
+            print("라운드" + str(j))
+            print(_table)
+            _table = BoxShift(_table,j)
+            _key = Shift(_key)                #shift key
+
         cTextList.append(roundText)
+
         ####
         #bitArr 저장 필요
         bitArr = []
@@ -150,12 +155,19 @@ def main():
                     cTextBit += '1'
                 else:
                     cTextBit += '0'
-
+    print(cTextBit)
     print('\n----- 암호문이 완성되었습니다. -----')
     for b in range(0,len(cTextBit) , 8):
-        cText += (str(hex(int(cTextBit[b:8 + b])))[2:4])
-    
-    print(cText)
+        cText += (str(hex(int(cTextBit[b:8 + b],2))))
+    cTexts = cText.split("0x")
+    print(cTexts)
+    del cTexts[0]
+    for kk in range(len(cTexts)):
+        if len(str(cTexts[kk])) < 2:
+            cTexts[kk] = '0'+cTexts[kk]
+    print(cTexts)
+    print(''.join(cTexts))
+    print(cText)            
     print('==================================')
     print(end - start)
             
