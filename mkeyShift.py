@@ -77,7 +77,7 @@ def Shift(keyList): # encription shift
                     keyList[idx_i][idx_j] = tmplist[idx_i - 1][15]
                 else:
                     keyList[idx_i][idx_j] = tmplist[idx_i - 1][idx_j - 1]
-
+    
 
     return keyList    #np.reshape(keyList,(1,256))
 
@@ -86,11 +86,9 @@ def Shift(keyList): # encription shift
 def dShift(keyList): #decription Shift
     tmplist = keyList.copy()
 
-    print(tmplist)
-
-    for idx_i in range(16):
-        for idx_j in range(16):
-            if idx_i == 15 and idx_j ==15:
+    for idx_i in range(15,-1,-1):
+        for idx_j in range(15,-1,-1):
+            if idx_i == 15 and idx_j == 15:
                 keyList[idx_i][idx_j] = tmplist[0][0]
 
             else:
@@ -101,9 +99,7 @@ def dShift(keyList): #decription Shift
                 else:
                     keyList[idx_i][idx_j] = tmplist[idx_i + 1][idx_j + 1]
 
-    print(keyList)
-
-    return np.reshape(keyList,(1,256))
+    return keyList#np.reshape(keyList,(1,256))
 
 
 

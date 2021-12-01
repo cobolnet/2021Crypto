@@ -3,14 +3,19 @@
 #4조
 #20163048 남시현
 '''
-
+from sys            import stdin
+import sys
 from mkeyShift      import Mstate, Mkey, Shift, dShift
 from box            import fill_box, down_row_shift, up_row_shift, left_col_shift, right_col_shift
+from shiftBoxTable  import *
 from hexadoku       import CreateTable as _CreateTable
-from table          import p_table, xor_table
+from table          import p_table, str_to_bool, xor_table
 from test           import hexadoku, puzzle
+from padding        import zeroPadding as _pad
+from padding        import utfD as _d
 import numpy as np
-
+import binascii
+import time
 #import mkeyShift,hexadoku,box,table,test
 
 
@@ -35,9 +40,7 @@ def CreateTable(_box) : #key -> box -> table
     return cTable
 
 
-
 ''''''''''''''''''''''''''''''
-
 
 
 def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
@@ -48,61 +51,116 @@ def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
 
     return state
 
-def BoxShift(_box,_round):    #8까지 우하 16까지 좌상
 
-    if round < 9:
-        if _round % 2 == 0 :
-            _box = down_row_shift(_box)
-        else:
-            _box = right_col_shift(_box)
-
-    else :
-        if _round % 2 == 0:
-            _box = left_col_shift(_box)
-        else:
-            _box = up_row_shift(_box)
-
-    return 0
-
-
+def BoxShift(_box,_round):    #생성된 스도쿠박스 시프트
+    #if _round % 2 == 0:
+    _box = right_shift_table(_box)
+    #elif _round % 2 == 1 :
+    _box = down_shift_table(_box)
+    #return 0
 
 
 ''''''''''''''''''''''''''''''''''''''
 
 
 def main():
-    #평문패딩 생략 8bit * 32자.
-    t = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    print('''
+  _    _                                               
+ | |  | |                                              
+ | |__| | _____  ____ _                                
+ |  __  |/ _ \ \/ / _` |                               
+ | |  | |  __/>  < (_| |                               
+ |_|__|_|\___/_/\_\__,_|             _   _             
+ |  ____|                           | | (_)            
+ | |__   _ __   ___ _ __ _   _ _ __ | |_ _  ___  _ __  
+ |  __| | '_ \ / __| '__| | | | '_ \| __| |/ _ \| '_ \ 
+ | |____| | | | (__| |  | |_| | |_) | |_| | (_) | | | |
+ |______|_| |_|\___|_|   \__, | .__/ \__|_|\___/|_| |_|
+                          __/ | |                      
+                         |___/|_|                                              
+    ''')
 
-    state = CreateState(t)
-    key = CreateKey(t)
+    print("----- 평문을 입력하세요. -----")
+    pText = input()
+    print("----- 키를 입력하세요 -----")
+    key = CreateKey(input())
+    print("----- 암호화를 시작합니다. -----")
+    start = time.time()
+    pEncode = _pad(pText)   #암호화 할 때
+    #cEncode = _d(cText)    #복호화 할 때
+    print(pEncode)
+    cTextList = []
+
+    byteC = []  #블록 리스트
+    bitArr = [] #256 단위의 블록 1개
+    bitRow = [] #한 블록의 한 행  
+    for i in range( int(len(pEncode) / 32)): #32바이트 == 256비트씩 끊어 블록으로 만들기
+        byteC.append(pEncode[ i * 32 : i * 32 + 32])
+    
+
+    #키로 박스 만들기
     box = CreateBox(key)
+
+    #박스로 테이블 만들기
     table = CreateTable(box)
 
+    #Key의 원소를 Bool 타입으로 변환
+    keyB = str_to_bool(key) 
+    
 
-    for i in range(16):
-        state = Round(state,key,box,table)  #key_s - table 전치 - xor - box_s
+    #binscii = binascii.hexlify(cEncode.encode('utf-8'))
+    rowCnt = 0
+    for u in range(len(byteC)): #블록
+        #print(byteC[u])
+        for i in range(32): #한 블록의 한 행
+            for k in range(7,-1,-1): #리스트에 넣기
+                tmp = byteC[u][i]
 
-        #Round(state,key,box,table)
-        #BoxShift(box, i)
+                bitRow.append(((tmp >> k) & 1))
+            rowCnt += 1
+            if(rowCnt == 2):
+                bitArr.append(bitRow)
+                bitRow = []
+                rowCnt = 0
+        #print("========= 블록 번호" + str(u) +" =========")
+        #print(bitArr)
+        ####
+        #여기다가 복호화/암호화 추가
+        for j in range(16): #16라운드
+            #print(roundBox)
+            roundText = Round(bitArr,key,box,table)
+            BoxShift(table,j)
+            print("라운드 : "  + str(j))
+            for rt in range(len(roundText)):
+                print(roundText[rt],end='')
+            print("\n")
+        cTextList.append(roundText)
+        ####
+        #bitArr 저장 필요
+        bitArr = []
+    end = time.time()
+    
+    cTextBitCount = 0 
+    cTextBit = ""
+    cText = ""
+    for p in range(len(byteC)): #블록 수
+        for pp in range(16):
+            for ppp in range(16):
+                if (cTextList[p][pp][ppp]):
+                    cTextBit += '1'
+                else:
+                    cTextBit += '0'
 
-    print(state)
-        
-    '''
+    print('\n----- 암호문이 완성되었습니다. -----')
+    for b in range(0,len(cTextBit) , 8):
+        cText += (str(hex(int(cTextBit[b:8 + b])))[2:4])
+    
+    print(cText)
+    print('==================================')
+    print(end - start)
+            
 
-    print ('state')
-    print(state)
-    print('key')
-    print(key)
-    print('box')
-    print(box)
-    print('table')
-    print(table)
+#if __name__=="__main__":
+main()
 
-    state = table = p_table(state, table)  # table 전치 테스트 용
-    print('state')
-    print(state)
-    '''
 
-if __name__=="__main__":
-    main()
