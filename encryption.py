@@ -9,6 +9,8 @@ from box            import fill_box, down_row_shift, up_row_shift, left_col_shif
 from hexadoku       import CreateTable as _CreateTable
 from table          import p_table, xor_table
 from test           import hexadoku, puzzle
+
+from shiftBoxTable import right_shift_table, down_shift_table, up_shift_table, left_shift_table
 import numpy as np
 
 #import mkeyShift,hexadoku,box,table,test
@@ -48,23 +50,14 @@ def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
 
     return state
 
-def BoxShift(_box,_round):    #8까지 우하 16까지 좌상
+def BoxShift(_box,_round):    #생성된 스도쿠박스 시프트
+    if _round % 2 == 0:
+        _box = right_shift_table(_box)
+    elif _round % 2 == 1 :
+        _box = down_shift_table(_box)
 
-    if round < 9:
-        if _round % 2 == 0 :
-            _box = down_row_shift(_box)
-        else:
-            _box = right_col_shift(_box)
-
-    else :
-        if _round % 2 == 0:
-            _box = left_col_shift(_box)
-        else:
-            _box = up_row_shift(_box)
 
     return 0
-
-
 
 
 ''''''''''''''''''''''''''''''''''''''
@@ -83,13 +76,12 @@ def main():
     for i in range(16):
         state = Round(state,key,box,table)  #key_s - table 전치 - xor - box_s
 
-        #Round(state,key,box,table)
-        #BoxShift(box, i)
+        BoxShift(table, i)
 
+        
     print(state)
         
     '''
-
     print ('state')
     print(state)
     print('key')
