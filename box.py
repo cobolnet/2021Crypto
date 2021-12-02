@@ -1,7 +1,13 @@
 # 2021 정보보안
 # 4조
 # 20163080 전유승
-# fill box with initial key list
+
+
+##
+# 키로 박스의 값을 받는다.
+# 박스의 시프트를 담당한다.
+##
+
 def fill_box(key):
     t_list = [-1 for _ in range(16)]
     zero_to_f = [0 for _ in range(16)]

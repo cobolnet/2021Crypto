@@ -2,8 +2,11 @@
 #4조
 #20163081 정금종
 
+##
+# 최초 헥사도쿠 테이블 생성을 위한 박스를 전달받아 초기 값을 설정한다.
+##
+
 from box import fill_box
-#import hexasolver as hexa
 import numpy as np
 
 #박스 -> 빈 테이블

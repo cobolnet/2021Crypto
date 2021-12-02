@@ -4,6 +4,10 @@
 import box
 import numpy as np
 
+##
+# 라운드별 테이블/박스의 시프트를 담당한다.
+##
+
 
 # 테이블 내 박스를 병렬로 쉬프트함
 def right_shift_table(sudoku):

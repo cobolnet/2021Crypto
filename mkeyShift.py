@@ -7,6 +7,10 @@
 import hashlib
 import numpy as np
 
+##
+# 키의 시프트를 담당한다.
+##
+
 
 def Mstate(t): #평문 (8비트 * 32자) -> 2진수 리스트
     tList = list(t)

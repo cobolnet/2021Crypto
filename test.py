@@ -2,10 +2,13 @@
 #4조
 #20163081 정금종
 
+##
+# 최초 1회로 헥사도쿠 (16*16) 테이블을 만들어준다.
+##
+
 from hexadoku import CreateTable
 import hashlib
 import numpy as np
-
 
 M = 16
 def puzzle(a):
