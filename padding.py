@@ -13,4 +13,6 @@ def zeroPadding(plain):
     return k
 
 def utfD(plain):  
-    return bytes.fromhex(plain)
+    k = bytes.fromhex(plain)
+    print(k)
+    return k

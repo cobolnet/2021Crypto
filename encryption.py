@@ -17,9 +17,11 @@ from padding        import utfD as _d
 import numpy as np
 import binascii
 import time, copy
-#import mkeyShift,hexadoku,box,table,test
 
 
+'''
+20163048 남시현
+'''
 def CreateState(_text): #평문 -> 256 16*16
     state = Mstate(_text)
     return state
@@ -43,16 +45,6 @@ def CreateTable(_box) : #key -> box -> table
 
 ''''''''''''''''''''''''''''''
 
-
-#def Round(_state, _key,_box,_table) :  #key_s - 테이블전치 - xor - box_s
-
-    #_key = Shift(_key)             #shift key
-    #state = p_table(_state, _table)   #table 전치
-    #state = xor_table(_state, _key)    #XOR
-
-    #return state, _table, _key
-
-
 def BoxShift(_box, _round):    #생성된 스도쿠박스 시프트
     #if _round % 2 == 0:
     _box = right_shift_table(_box)
@@ -63,7 +55,9 @@ def BoxShift(_box, _round):    #생성된 스도쿠박스 시프트
 
 ''''''''''''''''''''''''''''''''''''''
 
-
+'''
+20163081 정금종
+'''
 def main():
     print('''
   _    _                                               
@@ -110,10 +104,9 @@ def main():
     keyB = str_to_bool(key) 
     
 
-    #binscii = binascii.hexlify(cEncode.encode('utf-8'))
+
     rowCnt = 0
     for u in range(len(byteC)): #블록
-        #print(byteC[u])
         for i in range(32): #한 블록의 한 행
             for k in range(7,-1,-1): #리스트에 넣기
                 tmp = byteC[u][i]
@@ -125,7 +118,7 @@ def main():
                 bitArr.append(bitRow)
                 bitRow = []
                 rowCnt = 0
-        #print("========= 블록 번호" + str(u) +" =========")
+
 
         ####
         #여기다가 복호화/암호화 추가
@@ -154,20 +147,21 @@ def main():
                 else:
                     cTextBit += '0'
 
-    print('\n----- 암호문이 완성되었습니다. -----')
+    
     for b in range(0,len(cTextBit) , 8):
         cText += (str(hex(int(cTextBit[b:8 + b],2))))
-    cTexts = cText.split("0x")
-    del cTexts[0]
+
+
+    cTexts = cText.split('0x')
+
     for kk in range(len(cTexts)):
-        if len(str(cTexts[kk])) < 2:
+        if len(str(cTexts[kk])) == 1:
             cTexts[kk] = '0'+cTexts[kk]
-    #print(cTexts)
-    print(''.join(cTexts))
-    #print(cText)            
-    print('==================================')
+
+    print(''.join(cTexts))            
+    print('\n----- 암호문이 완성되었습니다. -----')
     print(end - start)
-            
+    print("소요시간 : " + str(end - start) +"초")           
 
 #if __name__=="__main__":
 main()
