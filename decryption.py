@@ -20,6 +20,9 @@ import time, copy
 #import mkeyShift,hexadoku,box,table,test
 
 
+'''
+20163048 남시현
+'''
 def CreateState(_text): #평문 -> 256 16*16
     state = Mstate(_text)
     return state
@@ -62,7 +65,9 @@ def BoxShift(_box,_round):    #생성된 스도쿠박스 시프트
 
 ''''''''''''''''''''''''''''''''''''''
 
-
+'''
+20163081 정금종
+'''
 def main():
     print('''
  _    _                                              
@@ -161,22 +166,25 @@ def main():
                 else:
                     pTextBit += '0'
 
-    print('\n----- 평문이 완성되었습니다. -----')
+    
     for b in range(0,len(pTextBit) , 8):
-        #print(pTextBit[b:8+b])
         pText += (str(hex(int(pTextBit[b:8 + b],2))))
     
     pTexts = pText.split('0x')
+    ttt = ''
+    for kkk in range(len(pTexts)):
+        if pTexts[kkk] != '' and pTexts[kkk] != '0':
+            ttt += pTexts[kkk]
+    
 
 
+    real = ''.join(ttt)
 
-    real = ''.join(pTexts)
     real = bytes.fromhex(real)
     
     print(real.decode('utf-8'))
-
-    print('==================================')
-    print(end - start)
+    print('\n----- 평문이 완성되었습니다. -----')
+    print("소요시간 : " + str(end - start) +"초")
 
 #if __name__=="__main__":
 main()
