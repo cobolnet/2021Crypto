@@ -1,6 +1,8 @@
 # 2021 정보보안
 # 4조
 # 20163080 전유승
+import copy
+
 import box
 import numpy as np
 
@@ -57,7 +59,7 @@ def up_shift_table(sudoku):
 # 테이블 내 박스의 위치를 상하좌우로 쉬프트함
 def right_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = np.full([16, 16], 0)
+    temp = copy.deepcopy(np_sudoku)
 
     temp[:, 4:16] = np_sudoku[:, 0:12]
     temp[:, 0:4] = np_sudoku[:, 12:16]
@@ -67,7 +69,7 @@ def right_move_box(sudoku):
 
 def down_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = np.full([16, 16], 0)
+    temp = copy.deepcopy(np_sudoku)
 
     temp[4:16, :] = np_sudoku[0:12, :]
     temp[0:4, :] = np_sudoku[12:16, :]
@@ -77,7 +79,7 @@ def down_move_box(sudoku):
 
 def left_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = np.full([16, 16], 0)
+    temp = copy.deepcopy(np_sudoku)
 
     temp[:, 0:12] = np_sudoku[:, 4:16]
     temp[:, 12:16] = np_sudoku[:, 0:4]
@@ -87,7 +89,7 @@ def left_move_box(sudoku):
 
 def up_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = np.full([16, 16], 0)
+    temp = copy.deepcopy(np_sudoku)
 
     temp[0:12, :] = np_sudoku[4:16, :]
     temp[12:16, :] = np_sudoku[0:4, :]
