@@ -148,6 +148,7 @@ def main():
         roundText = bitArr
         # 16라운드
         for j in range(16):
+            _table = HexaShift(_table, j)
             _table = BoxShift(_table, j)
             _key = dShift(_key)
             # XOR
@@ -176,14 +177,13 @@ def main():
         pText += (str(hex(int(pTextBit[b:8 + b], 2))))
 
     pTexts = pText.split('0x')
-    print(pTexts)
     ttt = ''
     for kkk in range(len(pTexts)):
         if pTexts[kkk] != '' and pTexts[kkk] != '0':
             ttt += pTexts[kkk]
-    print(ttt)
+
     real = ''.join(ttt)
-    print(real)
+
     real = bytes.fromhex(real)
 
     print(real.decode('utf-8'))

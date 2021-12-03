@@ -59,39 +59,39 @@ def up_shift_table(sudoku):
 # 테이블 내 박스의 위치를 상하좌우로 쉬프트함
 def right_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = copy.deepcopy(np_sudoku)
+    temp = np.array(sudoku)
 
-    temp[:, 4:16] = np_sudoku[:, 0:12]
-    temp[:, 0:4] = np_sudoku[:, 12:16]
+    temp[0:16, 4:16] = np_sudoku[0:16, 0:12]
+    temp[0:16, 0:4] = np_sudoku[0:16, 12:16]
 
     return temp.tolist()
 
 
 def down_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = copy.deepcopy(np_sudoku)
+    temp = np.array(sudoku)
 
-    temp[4:16, :] = np_sudoku[0:12, :]
-    temp[0:4, :] = np_sudoku[12:16, :]
+    temp[4:16, 0:16] = np_sudoku[0:12, 0:16]
+    temp[0:4, 0:16] = np_sudoku[12:16, 0:16]
 
     return temp.tolist()
 
 
 def left_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = copy.deepcopy(np_sudoku)
+    temp = np.array(sudoku)
 
-    temp[:, 0:12] = np_sudoku[:, 4:16]
-    temp[:, 12:16] = np_sudoku[:, 0:4]
+    temp[0:16, 0:12] = np_sudoku[0:16, 4:16]
+    temp[0:16, 12:16] = np_sudoku[0:16, 0:4]
 
     return temp.tolist()
 
 
 def up_move_box(sudoku):
     np_sudoku = np.array(sudoku)
-    temp = copy.deepcopy(np_sudoku)
+    temp = np.array(sudoku)
 
-    temp[0:12, :] = np_sudoku[4:16, :]
-    temp[12:16, :] = np_sudoku[0:4, :]
+    temp[0:12, 0:16] = np_sudoku[4:16, 0:16]
+    temp[12:16, 0:16] = np_sudoku[0:4, 0:16]
 
     return temp.tolist()
