@@ -1,9 +1,3 @@
-'''
-#2021 정보보안
-#4조
-#20163081 정금종
-#20163048 남시현
-'''
 from sys import stdin
 import sys
 from mkeyShift import *
@@ -18,9 +12,6 @@ import numpy as np
 import binascii
 import time, copy
 
-'''
-20163048 남시현
-'''
 
 
 # 평문 -> 256 16*16
@@ -69,10 +60,6 @@ def HexaShift(_sudoku, _round):
         _sudoku = left_move_box(_sudoku)
     return _sudoku
 
-
-'''
-20163081 정금종
-'''
 
 
 def main():

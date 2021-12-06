@@ -1,9 +1,3 @@
-'''
-#2021 정보보안
-#4조
-#20163048 남시현
-'''
-
 import hashlib
 import numpy as np
 

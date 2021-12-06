@@ -1,8 +1,4 @@
-# 2021 정보보안
-# 4조
-# 20163080 전유승
 import copy
-
 import box
 import numpy as np
 
