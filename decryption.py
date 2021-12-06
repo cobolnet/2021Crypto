@@ -186,7 +186,11 @@ def main():
 
     real = bytes.fromhex(real)
 
-    print(real.decode('utf-8'))
+    try:
+        print(real.decode('utf-8'))
+    except:
+        print(real)
+
     print('----- 평문이 완성되었습니다. -----')
     print("소요시간 : " + str(end - start) + "초")
 
