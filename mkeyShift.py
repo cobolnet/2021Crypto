@@ -7,12 +7,13 @@
 import hashlib
 import numpy as np
 
+
 ##
 # 키의 시프트를 담당한다.
 ##
 
 
-def Mstate(t): #평문 (8비트 * 32자) -> 2진수 리스트
+def Mstate(t):  # 평문 (8비트 * 32자) -> 2진수 리스트
     tList = list(t)
     tList16 = []
     tList10 = []
@@ -33,15 +34,10 @@ def Mstate(t): #평문 (8비트 * 32자) -> 2진수 리스트
 
     rtList = np.reshape(rtList, (16, 16))
 
-    return rtList   #16*16 state return
+    return rtList  # 16*16 state return
 
 
-
-
-
-
-
-def Mkey(t):    #평문 -> sha256(4비트 * 64자) -> 2진수 리스트
+def Mkey(t):  # 평문 -> sha256(4비트 * 64자) -> 2진수 리스트
     t = t.encode('utf-8')
     key = hashlib.sha256(t).hexdigest()
     keyList16 = list(key)
@@ -63,15 +59,14 @@ def Mkey(t):    #평문 -> sha256(4비트 * 64자) -> 2진수 리스트
     return keyList
 
 
-
-def Shift(keyList): # encription shift
+def Shift(keyList):  # encription shift
 
     keyList = np.reshape(keyList, (16, 16))
     tmplist = keyList.copy()
-    #print(keyList)
+    # print(keyList)
     for idx_i in range(16):
         for idx_j in range(16):
-            if idx_i == 0 and idx_j ==0:
+            if idx_i == 0 and idx_j == 0:
                 keyList[idx_i][idx_j] = tmplist[15][15]
 
             else:
@@ -81,17 +76,16 @@ def Shift(keyList): # encription shift
                     keyList[idx_i][idx_j] = tmplist[idx_i - 1][15]
                 else:
                     keyList[idx_i][idx_j] = tmplist[idx_i - 1][idx_j - 1]
-    
-    #print(keyList)
-    return keyList    #np.reshape(keyList,(1,256))
+
+    # print(keyList)
+    return keyList
 
 
-
-def dShift(keyList): #decription Shift
+def dShift(keyList):  # decription Shift
     tmplist = keyList.copy()
 
-    for idx_i in range(15,-1,-1):
-        for idx_j in range(15,-1,-1):
+    for idx_i in range(15, -1, -1):
+        for idx_j in range(15, -1, -1):
             if idx_i == 15 and idx_j == 15:
                 keyList[idx_i][idx_j] = tmplist[0][0]
 
@@ -103,16 +97,4 @@ def dShift(keyList): #decription Shift
                 else:
                     keyList[idx_i][idx_j] = tmplist[idx_i + 1][idx_j + 1]
 
-    return keyList#np.reshape(keyList,(1,256))
-
-
-
-
-
-def main(): #test
-    t = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    Mstate(t)
-    #dShift(Mkey(t))
-
-if __name__=="__main__":
-    main()
+    return keyList
