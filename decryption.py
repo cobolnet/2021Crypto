@@ -187,11 +187,15 @@ def main():
     real = bytes.fromhex(real)
 
     try:
+        real.decode('utf-8')
+        print(real)
+        print('----- utf-8 인코딩 전 -----')
         print(real.decode('utf-8'))
+        print('----- 평문이 완성되었습니다. -----')
     except:
         print(real)
+        print('----- 평문이 완성되었습니다. -----')
 
-    print('----- 평문이 완성되었습니다. -----')
     print("소요시간 : " + str(end - start) + "초")
 
 
